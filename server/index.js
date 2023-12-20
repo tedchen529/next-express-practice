@@ -42,7 +42,7 @@ app.use((req, res, next) => {
   res.locals.toDateString = (d) => dayjs(d).format("YYYY-MM-DD");
   res.locals.toDateTimeString = (d) => dayjs(d).format("YYYY-MM-DD HH:mm:ss");
 
-  res.locals.session = req.session;  // 讓 templates 可以取用 session
+  res.locals.session = req.session; // 讓 templates 可以取用 session
   next();
 });
 // 定義路由
@@ -184,7 +184,7 @@ app.post("/login", async (req, res) => {
 });
 app.get("/logout", async (req, res) => {
   delete req.session.admin;
-  res.redirect('/');
+  res.redirect("/");
 });
 
 // 設定靜態內容的資料夾

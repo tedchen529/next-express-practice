@@ -21,10 +21,13 @@ router.use((req, res, next) => {
 const getListData = async (req) => {
   const perPage = 20; // 每頁幾筆
   let page = +req.query.page || 1; // 用戶決定要看第幾頁
-  let keyword = (req.query.keyword && typeof req.query.keyword ==='string' ) ? req.query.keyword.trim() : "";
+  let keyword =
+    req.query.keyword && typeof req.query.keyword === "string"
+      ? req.query.keyword.trim()
+      : "";
   let keyword_ = db.escape(`%${keyword}%`);
 
-  let qs = {};  // 用來把 query string 的設定傳給 template
+  let qs = {}; // 用來把 query string 的設定傳給 template
   // 起始的日期
   let startDate = req.query.startDate ? req.query.startDate.trim() : "";
   const startDateD = dayjs(startDate);

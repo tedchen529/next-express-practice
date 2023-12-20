@@ -3,6 +3,7 @@ import Head from "next/head";
 // Q: Different than Head in _document.js?
 
 export function Layout1({ children }) {
+  // Q: Children?
   return (
     <>
       <Head>
