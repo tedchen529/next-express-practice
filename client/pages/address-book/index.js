@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Layout1 } from "@/components/Layout1";
 import { AB_LIST } from "@/components/my-const";
+import Link from "next/link";
 
 export default function ABIndex() {
   // console.log("window.location.href:", window.location.href);
@@ -31,6 +32,29 @@ export default function ABIndex() {
         {/* NOTE: JSON-formatted string */}
         <div className="row">
           <div className="col">
+            <nav aria-label="Page navigation example">
+              <ul className="pagination">
+                {data.success && data.totalPages
+                  ? Array(data.totalPages)
+                      .fill(1)
+                      .map((v, i) => {
+                        return (
+                          <li key={i} className="page-item">
+                            <Link className="page-link" href="?">
+                              {i + 1}
+                            </Link>
+                          </li>
+                        );
+                      })
+                  : null}
+                {/* Q: href? */}
+                {/* Q: How to add pagination in ejs? See node practice */}
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
             <table className="table table-striped table-bordered">
               <thead>
                 <tr>
@@ -55,14 +79,10 @@ export default function ABIndex() {
                     return (
                       <tr key={i.sid}>
                         <td>
-                          <a
-                            href="javascript:"
-                            onclick="removeItem(event)"
-                            data-sid=""
-                          >
+                          <Link href="#/">
                             {/* Q: Not yet functional */}
                             <i className="fa-solid fa-trash"></i>
-                          </a>
+                          </Link>
                         </td>
                         <td>{i.sid}</td>
                         <td>{i.name}</td>
@@ -71,10 +91,10 @@ export default function ABIndex() {
                         <td>{i.birthday}</td>
                         <td>{i.address}</td>
                         <td>
-                          <a href="/address-book/edit/">
-                            {/* Q: Not yet functional */}
+                          <Link href="/address-book/edit/">
                             <i className="fa-solid fa-square-pen"></i>
-                          </a>
+                          </Link>
+                          {/* Q: Not yet functional */}
                         </td>
                       </tr>
                     );

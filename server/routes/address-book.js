@@ -19,7 +19,7 @@ router.use((req, res, next) => {
 });
 
 const getListData = async (req) => {
-  const perPage = 20; // 每頁幾筆
+  const perPage = 5; // 每頁幾筆
   let page = +req.query.page || 1; // 用戶決定要看第幾頁
   let keyword =
     req.query.keyword && typeof req.query.keyword === "string"
