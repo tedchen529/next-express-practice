@@ -12,9 +12,9 @@ router.use((req, res, next) => {
     return next();
   }
 
-  if (!req.session.admin) {
-    return res.redirect("/login");
-  }
+  // if (!req.session.admin) {
+  //   return res.redirect("/login");
+  // }
   next();
 });
 
