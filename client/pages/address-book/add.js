@@ -2,6 +2,7 @@ import { Layout1 } from "@/components/Layout1";
 import { useState } from "react";
 import { z } from "zod";
 // Q: 可控表單?
+import { AB_ADD } from "@/components/my-const";
 
 export default function ABAdd() {
   const [myForm, setMyForm] = useState({
@@ -11,6 +12,8 @@ export default function ABAdd() {
     birthday: "",
     address: "",
   });
+
+  const [displayInfo, setDisplayInfo] = useState("");
 
   const changeHandler = (e) => {
     /*
@@ -33,19 +36,44 @@ export default function ABAdd() {
 
     const { name, id, value } = e.target;
     console.log({ name, id, value });
+    setDisplayInfo("");
     setMyForm({ ...myForm, [id]: value });
     // Q: Why brackets for [id]? Why change id?
     // Q: Why does setMyForm run first?
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
+
+    // NOTE: 檢查各欄位資料
+    const emailSchema = z.coerce
+      .string()
+      .email({ message: "錯誤的 email 格式" });
+    console.log("emailSchema:", emailSchema.safeParse(myForm.email));
+
+    const r = await fetch(AB_ADD, {
+      method: "POST",
+      body: JSON.stringify(myForm),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const responseData = await r.json();
+
+    if (responseData.success) {
+      setDisplayInfo("succ");
+      // alert("新增成功");
+    } else {
+      setDisplayInfo("fail");
+      // alert("新增發生錯誤！");
+    }
   };
 
+  // NOTE: Testing Zod
   // const emailSchema = z.string().email({ message: "錯誤的 email 格式" });
-  const emailSchema = z.coerce.string().email({ message: "錯誤的 email 格式" });
-  // Q: Coercing what?
-  console.log("emailSchema:", emailSchema.safeParse(myForm.email));
+  // const emailSchema = z.coerce.string().email({ message: "錯誤的 email 格式" });
+  // NOTE: "Coerce" for improved input flexibility
+  // console.log("emailSchema:", emailSchema.safeParse(myForm.email));
 
   console.log("re-render---", new Date());
 
@@ -129,6 +157,17 @@ export default function ABAdd() {
                       onChange={changeHandler}
                     ></textarea>
                   </div>
+                  {displayInfo ? (
+                    displayInfo === "succ" ? (
+                      <div class="alert alert-success" role="alert">
+                        資料新增成功
+                      </div>
+                    ) : (
+                      <div class="alert alert-danger" role="alert">
+                        新增發生錯誤！
+                      </div>
+                    )
+                  ) : null}
                   <button type="submit" className="btn btn-primary">
                     Submit
                   </button>
