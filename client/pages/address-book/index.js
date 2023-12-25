@@ -116,7 +116,7 @@ export default function ABIndex() {
                         <td>{dayjs(i.birthday).format("YYYY-MM-DD")}</td>
                         <td>{i.address}</td>
                         <td>
-                          <Link href="/address-book/edit/">
+                          <Link href={`/address-book/edit/${i.sid}`}>
                             <i className="fa-solid fa-square-pen"></i>
                           </Link>
                           {/* Q: Not yet functional */}
