@@ -1,5 +1,6 @@
 import { Layout1 } from "@/components/Layout1";
 import { useState } from "react";
+import { z } from "zod";
 // Q: 可控表單?
 
 export default function ABAdd() {
@@ -40,6 +41,11 @@ export default function ABAdd() {
   const onSubmit = (e) => {
     e.preventDefault();
   };
+
+  // const emailSchema = z.string().email({ message: "錯誤的 email 格式" });
+  const emailSchema = z.coerce.string().email({ message: "錯誤的 email 格式" });
+  // Q: Coercing what?
+  console.log("emailSchema:", emailSchema.safeParse(myForm.email));
 
   console.log("re-render---", new Date());
 
