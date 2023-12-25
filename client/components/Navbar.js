@@ -31,6 +31,11 @@ export default function Navbar() {
                   ab 列表
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link" href="/address-book/add">
+                  ab 新增
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

@@ -41,9 +41,9 @@ export default function ABIndex() {
         {/* <pre>{JSON.stringify(data, null, 4)}</pre> */}
         {/* NOTE: JSON-formatted string */}
 
-        <div className="row">
+        {/* <div className="row">
           <pre className="col">{router.query.page}</pre>
-        </div>
+        </div> */}
 
         <div className="row">
           <div className="col">
@@ -62,7 +62,7 @@ export default function ABIndex() {
                               p === data.page ? "page-item active" : "page-item"
                             }
                           >
-                          {/* NOTE: Avoid using index as key as it may be changed */}
+                            {/* NOTE: Avoid using index as key as it may be changed */}
                             <Link className="page-link" href={"?page=" + p}>
                               {p}
                             </Link>
