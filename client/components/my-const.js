@@ -6,7 +6,7 @@ export const AB_LIST = API_SERVER + "/address-book/api";
 export const AB_ADD = API_SERVER + "/address-book/add";
 // Q: method: POST?
 
-export const AB_GET_ONE = API_SERVER + "address-book/api/edit";
+export const AB_GET_ONE = API_SERVER + "/address-book/api/edit";
 // NOTE: 取得某一筆 method: GET
 
 export const AB_EDIT_ONE = API_SERVER + "/address-book/edit";

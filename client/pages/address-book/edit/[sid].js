@@ -26,18 +26,19 @@ export default function ABEdit() {
       } else {
         // NOTE: 取得單筆資料
 
-        // NOTE: Or "fetch(AB_GET_ONE + "/" + sid)"
-        fetch(AB_GET_ONE + `/${sid}`)
+        // Q: Data fetching issues unresolved!
+        fetch(AB_GET_ONE + "/" + sid)
           .then((r) => r.json())
           .then((data) => {
+            // Q: No data retrieved!
             if (!data.success) {
               router.push("address-book");
               // NOTE: 沒拿到資料就跳列表頁
             } else {
               setMyForm({ ...data.row });
             }
-          })
-          .catch((ex) => console.log(ex));
+          });
+        // .catch((ex) => console.log(ex));
         // Q: Why is catch still necessary when data.success === false is already considered?
       }
     }
@@ -67,7 +68,8 @@ export default function ABEdit() {
     delete mySend.created_at;
     // Q: Why remove created_at?
 
-    const r = await fetch(`${AB_EDIT_ONE}/${myForm.sid}`, {
+    // Q: Data fetching issues unresolved!
+    const r = await fetch(AB_EDIT_ONE + "/" + myForm.sid, {
       method: "PUT",
       body: JSON.stringify(mySend),
       headers: {
