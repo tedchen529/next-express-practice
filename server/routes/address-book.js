@@ -109,11 +109,15 @@ router.get("/", async (req, res) => {
     return res.redirect(output.redirect);
   }
 
+  /*
   if (!req.session.admin) {
     res.render("address-book/list-no-admin", output);
   } else {
     res.render("address-book/list", output);
   }
+  */
+
+  res.render("address-book/list", output);
 });
 
 router.get("/api", async (req, res) => {
@@ -180,6 +184,22 @@ router.get("/edit/:sid", async (req, res) => {
   row.birthday2 = dayjs(row.birthday).format("YYYY-MM-DD");
 
   res.render("address-book/edit", row);
+});
+
+// Q: 取得單筆資料API?
+router.get("/api/edit/:sid", async (req, res) => {
+  const sid = +req.params.sid;
+  const sql = `SELECT * FROM address_book WHERE sid=?`;
+  const [rows] = await db.query(sql, [sid]);
+  if (!rows.length) {
+    return res.json({ success: false });
+  }
+  const row = rows[0];
+  // row.birthday2 = dayjs(row.birthday).format("YYYY-MM-DD");
+  // row.birthday = dayjs(row.birthday).format("YYYY-MM-DD");
+  // Q: Is this necessary? 直接改 row.birthday?
+  res.json({ success: true, row });
+  // Q: This is a shorthand? Will "row: row" also work?
 });
 
 router.put("/edit/:sid", async (req, res) => {
